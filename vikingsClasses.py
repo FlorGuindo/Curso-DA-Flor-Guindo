@@ -83,3 +83,4 @@ class War():
             return "Vikings and Saxons are still in the thick of battle."
     pass
 
+#Tuve que poner los escritos en ingles porque sino no pasaba los test.
