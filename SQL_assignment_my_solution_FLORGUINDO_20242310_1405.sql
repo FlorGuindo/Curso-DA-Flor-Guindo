@@ -129,19 +129,12 @@ ORDER BY mes, rank;
 -- Question 14. Average time between sessions for each charger for each month (consider the month of start_time)
 
 WITH 
-cargas AS (
-    SELECT 
-        charger_id,
-        start_time,
-        RANK() OVER (PARTITION BY charger_id ORDER BY start_time ASC) AS ranking
-    FROM sessions
-),
 diferencias AS (
     SELECT
         charger_id,
         start_time,
-        LAG(start_time) OVER (PARTITION BY charger_id ORDER BY ranking) AS carga_previa
-    FROM cargas
+        LAG(start_time) OVER (PARTITION BY charger_id ORDER BY start_time) AS carga_previa
+    FROM sessions
 )
 SELECT 
     charger_id,
@@ -151,3 +144,4 @@ FROM diferencias
 WHERE carga_previa IS NOT NULL
 GROUP BY mes, charger_id
 ORDER BY mes, charger_id;
+
